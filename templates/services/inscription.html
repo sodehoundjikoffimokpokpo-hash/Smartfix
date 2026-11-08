@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Devenir Prestataire - Smartfix Togo{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-md border border-gray-200 my-8">
+    <h2 class="text-3xl font-extrabold text-blue-600 mb-2 text-center">Rejoignez Smartfix</h2>
+    <p class="text-gray-600 text-center mb-6 text-sm">Proposez vos services à des milliers de clients potentiels à Lomé.</p>
+    
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div>
+                <label class="block text-gray-700 text-sm font-semibold mb-1">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <button type="submit" class="w-full bg-blue-600 text-white font-medium py-2.5 rounded-lg hover:bg-blue-700 transition mt-6">
+            Valider mon inscription
+        </button>
+    </form>
+    
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="text-sm text-blue-600 hover:underline">← Retour à l'accueil</a>
+    </div>
+</div>
+{% endblock %}

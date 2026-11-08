@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil - Smartfix Togo{% endblock %}
+
+{% block content %}
+<!-- Section Héroïque -->
+<div class="text-center py-8">
+    <h2 class="text-4xl font-extrabold text-blue-600 mb-2">Trouvez les meilleurs prestataires à Lomé</h2>
+    <p class="text-lg text-gray-600 mb-6">Plombiers, électriciens, techniciens... réservez un service en quelques clics.</p>
+    
+    <!-- Barre de Recherche et Filtres -->
+    <form method="GET" action="{% url 'home' %}" class="max-w-3xl mx-auto bg-white p-4 rounded-xl shadow-md border border-gray-200 flex flex-col md:flex-row gap-3">
+        
+        <!-- Champ de recherche (Nom ou Quartier) -->
+        <div class="flex-grow">
+            <input type="text" name="q" value="{{ query }}" placeholder="Rechercher par nom ou quartier (ex: Agoè)..." 
+                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+        </div>
+
+        <!-- Sélecteur de catégorie -->
+        <div class="w-full md:w-48">
+            <select name="categorie" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white">
+                <option value="">Toutes catégories</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selected_categorie == cat.id|stringformat:"s" %}selected{% endif %}>
+                        {{ cat.nom }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Bouton de validation -->
+        <button type="submit" class="bg-blue-600 text-white font-medium px-6 py-2 rounded-lg hover:bg-blue-700 transition text-sm">
+            Filtrer
+        </button>
+    </form>
+</div>
+
+<!-- Liste des prestataires -->
+<div class="mt-4">
+    <h3 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-2">Professionnels disponibles</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for p in prestataires %}
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition">
+            <div class="flex justify-between items-start mb-3">
+                <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full">
+                    {{ p.categorie.nom }}
+                </span>
+                <span class="text-xs font-medium text-green-600 bg-green-100 px-2 py-0.5 rounded">
+                    Disponible
+                </span>
+            </div>
+            
+            <h4 class="text-xl font-bold text-gray-900 mb-1">{{ p.nom_complet }}</h4>
+            <p class="text-gray-600 text-sm mb-2">Quartier : <span class="font-medium text-gray-800">{{ p.quartier }}</span></p>
+            <p class="text-gray-700 font-semibold mb-4">
+                Tarif : <span class="text-blue-600">{{ p.tarif_journalier }} FCFA</span> / jour
+            </p>
+            
+            <a href="tel:{{ p.telephone }}" class="block text-center bg-blue-600 text-white font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                📞 Contacter
+            </a>
+        </div>
+        {% empty %}
+        <div class="col-span-3 text-center py-12 bg-white rounded-xl shadow-sm border border-gray-200">
+            <p class="text-gray-500 text-lg">Aucun prestataire ne correspond à votre recherche.</p>
+            <a href="{% url 'home' %}" class="inline-block mt-3 text-sm text-blue-600 hover:underline">Réinitialiser les filtres</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

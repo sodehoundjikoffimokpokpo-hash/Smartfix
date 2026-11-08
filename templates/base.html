@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smartfix - Services Togo{% endblock %}</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+    <!-- Barre de navigation globale -->
+    <header class="sticky top-0 z-50 bg-blue-700/95 backdrop-blur-md text-white shadow-lg border-b border-blue-600/30">
+        <div class="container mx-auto px-6 py-3.5 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="{% url 'home' %}" class="flex items-center space-x-2 group">
+                <span class="text-2xl font-black tracking-tight bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                    Services<span class="text-blue-300">Togo</span>
+                </span>
+            </a>
+
+            <!-- Liens et Bouton d'action -->
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'home' %}" class="px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-200 hover:bg-blue-600/80">
+                    Accueil
+                </a>
+                
+                <!-- Bouton Ultra-Professionnel Animé -->
+                <a href="{% url 'inscription' %}" class="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-blue-700 transition-all duration-300 ease-in-out bg-white rounded-xl shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 overflow-hidden group border border-blue-100">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    <svg class="w-4 h-4 mr-2 transition-transform duration-300 group-hover:rotate-12 text-blue-600 relative z-10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="relative z-10 tracking-wide">Devenir Prestataire</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Contenu dynamique -->
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="bg-gray-900 text-gray-400 text-center py-6 text-sm border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <p>&copy; 2026 - Plateforme de Services Togo. Conçu pour connecter Lomé.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
